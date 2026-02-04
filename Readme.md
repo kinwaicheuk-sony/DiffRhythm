@@ -1,3 +1,12 @@
+# GPU usage
+
+RTX 4090 about 7GB.
+
+When using RTX 4090 for training, we need to add
+```bash
+NCCL_IB_DISABLE=1 NCCL_P2P_DISABLE=1 CUDA_VISIBLE_DEVICES=0 python train.py
+```
+
 <p align="center">
     <img src="src/DiffRhythm_logo.jpg" width="400"/>
 <p>
