@@ -210,16 +210,17 @@ def encode_audio(audio, vae_model, chunked=False, overlap=32, chunk_size=128):
             y_final[:,:,t_start:t_end] = y_chunk[:,:,chunk_start:chunk_end]
         return y_final
 
-def prepare_model(max_frames, device, repo_id="ASLP-lab/DiffRhythm-1_2"):
+def prepare_model(max_frames, device, repo_id="ASLP-lab/DiffRhythm-1_2", dit_ckpt_path=None):
     # prepare cfm model
     if max_frames == 2048:
         repo_id = "ASLP-lab/DiffRhythm-1_2"
     else:
         repo_id = "ASLP-lab/DiffRhythm-1_2-full"
-        
-    dit_ckpt_path = hf_hub_download(
-        repo_id=repo_id, filename="cfm_model.pt", cache_dir="./pretrained"
-    )
+    
+    if dit_ckpt_path is None:
+        dit_ckpt_path = hf_hub_download(
+            repo_id=repo_id, filename="cfm_model.pt", cache_dir="./pretrained"
+        )
         
     dit_config_path = "./config/diffrhythm-1b.json"
     with open(dit_config_path) as f:

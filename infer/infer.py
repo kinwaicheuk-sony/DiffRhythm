@@ -153,6 +153,13 @@ if __name__ == "__main__":
         required=False,
         help="number of songs per batch",
     )  # number of songs per batch
+    parser.add_argument(
+        "--ckpt-path",
+        type=str,
+        default=None,
+        required=False,
+        help="path of checkpoint for inference",
+    )  # checkpoint path for inference
     args = parser.parse_args()
 
     assert (
@@ -183,7 +190,7 @@ if __name__ == "__main__":
             "Supported values are exactly 95 or any value between 96 and 285 (inclusive)."
         )
 
-    cfm, tokenizer, muq, vae = prepare_model(max_frames, device)
+    cfm, tokenizer, muq, vae = prepare_model(max_frames, device, dit_ckpt_path=args.ckpt_path)
 
     if args.lrc_path:
         with open(args.lrc_path, "r", encoding='utf-8') as f:
